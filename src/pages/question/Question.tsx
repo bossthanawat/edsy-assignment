@@ -4,6 +4,7 @@ import { useMemo, useState } from "react";
 import QuestionStep from "./components/question-step";
 import QuestionFinal from "./components/question-final";
 import { Progress } from "@/components/ui/progress";
+import TimeRemaining from "./components/time-remaining";
 
 const Question = () => {
   const [currentStep, setCurrentStep] = useState(0);
@@ -56,6 +57,7 @@ const Question = () => {
             <>
               <div className="flex justify-between">
                 <p className="text-primary-500 font-bold">Multiple Choice</p>
+                <TimeRemaining duration={5*60}/>
               </div>
               <Progress className="mt-3" value={percent} />
               <div className="h-full flex flex-col">
