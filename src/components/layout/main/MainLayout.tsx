@@ -4,8 +4,10 @@ import Navbar from "./Navbar";
 const MainLayout = () => {
   return (
     <>
-      <Navbar />
-      <Outlet />
+      <div className="min-h-screen bg-primary-600">
+        <Navbar />
+        <Outlet />
+      </div>
     </>
   );
 };
