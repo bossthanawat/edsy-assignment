@@ -8,12 +8,18 @@ import TimeRemaining from "./components/time-remaining";
 
 const Question = () => {
   const [currentStep, setCurrentStep] = useState(0);
-  const [question, setQuestion] = useState<{ id: string; answers: string[] }[]>(
+  const [answers, setAnswers] = useState<{ id: string; answers: string[] }[]>(
     []
   );
 
+  const maxQuestion = listQuestion.length;
+  const currentQuestion = useMemo(
+    () => listQuestion[currentStep],
+    [currentStep]
+  );
+
   const handleSaveSelectAnswer = (values: string[]) => {
-    setQuestion((prev) => {
+    setAnswers((prev) => {
       const newQuestion = [...prev];
       newQuestion[currentStep] = {
         id: currentQuestion.id,
@@ -33,12 +39,6 @@ const Question = () => {
     setCurrentStep(currentStep - 1);
   };
 
-  const maxQuestion = listQuestion.length;
-  const currentQuestion = useMemo(
-    () => listQuestion[currentStep],
-    [currentStep]
-  );
-
   const step =
     currentStep === 0
       ? "frist"
@@ -57,7 +57,7 @@ const Question = () => {
             <>
               <div className="flex justify-between">
                 <p className="text-primary-500 font-bold">Multiple Choice</p>
-                <TimeRemaining duration={5*60}/>
+                <TimeRemaining duration={5 * 60} />
               </div>
               <Progress className="mt-3" value={percent} />
               <div className="h-full flex flex-col">
@@ -71,7 +71,7 @@ const Question = () => {
                     key={currentStep}
                     data={currentQuestion}
                     selectedAnswers={
-                      question.find((e) => e.id === currentQuestion.id)
+                      answers.find((e) => e.id === currentQuestion.id)
                         ?.answers || []
                     }
                     onNext={handleNext}
