@@ -6,9 +6,11 @@ import QuestionFinal from "./components/question-final";
 import { Progress } from "@/components/ui/progress";
 import TimeRemaining from "./components/time-remaining";
 
+type AnswersType = { id: string; answers: string }[];
+
 const Question = () => {
   const [currentStep, setCurrentStep] = useState(0);
-  const [answers, setAnswers] = useState<{ id: string; answers: string }[]>([]);
+  const [answers, setAnswers] = useState<AnswersType>([]);
 
   const maxQuestion = listQuestion.length;
   const currentQuestion = useMemo(
@@ -16,24 +18,27 @@ const Question = () => {
     [currentStep]
   );
 
-  const handleSaveSelectAnswer = (values: string) => {
-    setAnswers((prev) => {
-      const newQuestion = [...prev];
-      newQuestion[currentStep] = {
-        id: currentQuestion.id,
-        answers: values,
-      };
-      return newQuestion;
-    });
+  const handleSaveSelectAnswer = (values: string, prev: AnswersType) => {
+    const newQuestion = [...prev];
+    newQuestion[currentStep] = {
+      id: currentQuestion.id,
+      answers: values,
+    };
+    return newQuestion;
   };
 
   const handleNext = (values: string) => {
-    handleSaveSelectAnswer(values);
+    setAnswers((prev) => handleSaveSelectAnswer(values, prev));
     setCurrentStep(currentStep + 1);
   };
 
+  const handleSubmit = (values: string) => {
+    const result = handleSaveSelectAnswer(values, answers);
+    console.log(result);
+  };
+
   const handleBack = (values: string) => {
-    handleSaveSelectAnswer(values);
+    setAnswers((prev) => handleSaveSelectAnswer(values, prev));
     setCurrentStep(currentStep - 1);
   };
 
@@ -44,7 +49,7 @@ const Question = () => {
       ? "last"
       : "middle";
 
-  const percent = ((currentStep+1) / maxQuestion) * 100;
+  const percent = ((currentStep + 1) / maxQuestion) * 100;
 
   return (
     <>
@@ -74,6 +79,7 @@ const Question = () => {
                     }
                     onNext={handleNext}
                     onBack={handleBack}
+                    onSubmit={handleSubmit}
                     step={step}
                   />
                 </div>

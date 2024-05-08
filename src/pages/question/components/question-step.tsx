@@ -8,6 +8,7 @@ type MultipleChoiceProps = {
   selectedAnswers: string;
   onNext: (selectedAnswers: string) => void;
   onBack: (selectedAnswers: string) => void;
+  onSubmit: (selectedAnswers: string) => void;
   step: "frist" | "last" | "middle";
 };
 const QuestionStep = ({
@@ -15,6 +16,7 @@ const QuestionStep = ({
   selectedAnswers,
   onBack,
   onNext,
+  onSubmit,
   step,
 }: MultipleChoiceProps) => {
   const [answerId, setAnswerId] = useState(selectedAnswers);
@@ -56,13 +58,16 @@ const QuestionStep = ({
           ) : (
             <div />
           )}
-          <Button
-            type="submit"
-            onClick={() => onNext(answerId)}
-            disabled={!answerId}
-          >
-            {step === "last" ? "Submit" : "Next"}
-          </Button>
+          {step !== "last" && (
+            <Button onClick={() => onNext(answerId)} disabled={!answerId}>
+              Next
+            </Button>
+          )}
+          {step === "last" && (
+            <Button onClick={() => onSubmit(answerId)} disabled={!answerId}>
+              Submit
+            </Button>
+          )}
         </div>
       </div>
     </>
