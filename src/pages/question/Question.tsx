@@ -3,6 +3,7 @@ import { listQuestion } from "@/data/list-question";
 import { useMemo, useState } from "react";
 import QuestionStep from "./components/question-step";
 import QuestionFinal from "./components/question-final";
+import { Progress } from "@/components/ui/progress";
 
 const Question = () => {
   const [currentStep, setCurrentStep] = useState(0);
@@ -31,7 +32,7 @@ const Question = () => {
     setCurrentStep(currentStep - 1);
   };
 
-  const numberAllQuestion = listQuestion.length;
+  const maxQuestion = listQuestion.length;
   const currentQuestion = useMemo(
     () => listQuestion[currentStep],
     [currentStep]
@@ -40,9 +41,11 @@ const Question = () => {
   const step =
     currentStep === 0
       ? "frist"
-      : currentStep === numberAllQuestion - 1
+      : currentStep === maxQuestion - 1
       ? "last"
       : "middle";
+
+  const percent = (currentStep / maxQuestion) * 100;
 
   return (
     <>
@@ -51,11 +54,14 @@ const Question = () => {
           {!currentQuestion && <QuestionFinal />}
           {currentQuestion && (
             <>
-              <p className="text-primary-500 font-bold">Multiple Choice</p>
+              <div className="flex justify-between">
+                <p className="text-primary-500 font-bold">Multiple Choice</p>
+              </div>
+              <Progress className="mt-3" value={percent} />
               <div className="h-full flex flex-col">
                 <div className="flex flex-col">
                   <p className="text-xl font-bold mt-5">
-                    Question {currentStep + 1}/{numberAllQuestion}
+                    Question {currentStep + 1}/{maxQuestion}
                   </p>
                 </div>
                 <div>
