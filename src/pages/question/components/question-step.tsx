@@ -5,9 +5,9 @@ import { useState } from "react";
 
 type MultipleChoiceProps = {
   data: QuestionValue;
-  selectedAnswers: string[];
-  onNext: (selectedAnswers: string[]) => void;
-  onBack: (selectedAnswers: string[]) => void;
+  selectedAnswers: string;
+  onNext: (selectedAnswers: string) => void;
+  onBack: (selectedAnswers: string) => void;
   step: "frist" | "last" | "middle";
 };
 const QuestionStep = ({
@@ -17,7 +17,7 @@ const QuestionStep = ({
   onNext,
   step,
 }: MultipleChoiceProps) => {
-  const [answerIds, setAnswerIds] = useState(selectedAnswers);
+  const [answerId, setAnswerId] = useState(selectedAnswers);
 
   return (
     <>
@@ -25,7 +25,7 @@ const QuestionStep = ({
         <p className="mt-3">{data?.question}</p>
         <div className="mt-6 flex flex-col gap-3">
           {data.answers.map((answer) => {
-            const select = answerIds?.includes(answer.id);
+            const select = answerId?.includes(answer.id);
             return (
               <>
                 <div
@@ -35,10 +35,7 @@ const QuestionStep = ({
                     select && "bg-primary-50 text-primary border-primary-200"
                   )}
                   onClick={() => {
-                    const newAnswerIds = select
-                      ? answerIds?.filter((id) => id !== answer.id)
-                      : [...(answerIds || []), answer.id];
-                    setAnswerIds(newAnswerIds);
+                    setAnswerId(answer.id);
                   }}
                 >
                   <div className="font-medium">{answer.value}</div>
@@ -52,7 +49,7 @@ const QuestionStep = ({
             <Button
               type="button"
               variant={"outline"}
-              onClick={() => onBack(answerIds)}
+              onClick={() => onBack(answerId)}
             >
               Back
             </Button>
@@ -61,8 +58,8 @@ const QuestionStep = ({
           )}
           <Button
             type="submit"
-            onClick={() => onNext(answerIds)}
-            disabled={!answerIds || answerIds.length === 0}
+            onClick={() => onNext(answerId)}
+            disabled={!answerId}
           >
             {step === "last" ? "Submit" : "Next"}
           </Button>

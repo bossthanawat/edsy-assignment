@@ -8,9 +8,7 @@ import TimeRemaining from "./components/time-remaining";
 
 const Question = () => {
   const [currentStep, setCurrentStep] = useState(0);
-  const [answers, setAnswers] = useState<{ id: string; answers: string[] }[]>(
-    []
-  );
+  const [answers, setAnswers] = useState<{ id: string; answers: string }[]>([]);
 
   const maxQuestion = listQuestion.length;
   const currentQuestion = useMemo(
@@ -18,7 +16,7 @@ const Question = () => {
     [currentStep]
   );
 
-  const handleSaveSelectAnswer = (values: string[]) => {
+  const handleSaveSelectAnswer = (values: string) => {
     setAnswers((prev) => {
       const newQuestion = [...prev];
       newQuestion[currentStep] = {
@@ -29,12 +27,12 @@ const Question = () => {
     });
   };
 
-  const handleNext = (values: string[]) => {
+  const handleNext = (values: string) => {
     handleSaveSelectAnswer(values);
     setCurrentStep(currentStep + 1);
   };
 
-  const handleBack = (values: string[]) => {
+  const handleBack = (values: string) => {
     handleSaveSelectAnswer(values);
     setCurrentStep(currentStep - 1);
   };
@@ -71,8 +69,8 @@ const Question = () => {
                     key={currentStep}
                     data={currentQuestion}
                     selectedAnswers={
-                      answers.find((e) => e.id === currentQuestion.id)
-                        ?.answers || []
+                      answers?.find((e) => e.id === currentQuestion.id)
+                        ?.answers || ""
                     }
                     onNext={handleNext}
                     onBack={handleBack}
