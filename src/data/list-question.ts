@@ -43,12 +43,52 @@ export const listQuestion: Questions = [
     question: "How did you find the meal?",
     answers: [
       {
-        id: "aswer-2-1",
+        id: "aswer-1",
         value: "It was not far from here.",
       },
       {
-        id: "aswer-2-2",
+        id: "aswer-2",
         value: "We asked for it.",
+      },
+
+      {
+        id: "aswer-3",
+        value: "It was horrible.",
+      },
+      {
+        id: "aswer-4",
+        value: "I made it myself.",
+      },
+      {
+        id: "aswer-5",
+        value: "Not sure.",
+      },
+    ],
+  },
+  {
+    id: "question-3",
+    question: "I find living in the city very stressful.",
+    answers: [
+      {
+        id: "aswer-1",
+        value: "I can’t find it.",
+      },
+      {
+        id: "aswer-2",
+        value: "Where do you find it?",
+      },
+
+      {
+        id: "aswer-3",
+        value: "So do I.",
+      },
+      {
+        id: "aswer-4",
+        value: "I also live in the city",
+      },
+      {
+        id: "aswer-5",
+        value: "Not sure.",
       },
     ],
   },
