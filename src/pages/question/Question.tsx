@@ -44,7 +44,7 @@ const Question = () => {
       ? "last"
       : "middle";
 
-  const percent = (currentStep / maxQuestion) * 100;
+  const percent = ((currentStep+1) / maxQuestion) * 100;
 
   return (
     <>
