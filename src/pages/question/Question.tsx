@@ -34,6 +34,7 @@ const Question = () => {
 
   const handleSubmit = (values: string) => {
     const result = handleSaveSelectAnswer(values, answers);
+    setCurrentStep(currentStep + 1);
     console.log(result);
   };
 
