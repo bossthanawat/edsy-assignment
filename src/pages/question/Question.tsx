@@ -55,11 +55,11 @@ const Question = () => {
   return (
     <>
       <div className="container">
-        <Paper className="mt-12 w-[1040px] h-[700px] mx-auto p-14">
+        <Paper className="mt-12 max-w-[1040px] h-[700px] mx-auto p-7 sm:p-14">
           {!currentQuestion && <QuestionFinal />}
           {currentQuestion && (
             <>
-              <div className="flex justify-between">
+              <div className="flex flex-col sm:flex-row justify-between">
                 <p className="text-primary-500 font-bold">Multiple Choice</p>
                 <TimeRemaining duration={5 * 60} />
               </div>

@@ -8,10 +8,10 @@ const Home = () => {
   return (
     <>
       <div className="container">
-        <Paper className="mt-12 w-[1040px] h-[700px] mx-auto">
+        <Paper className="mt-12 max-w-[1040px] h-[700px] mx-auto">
           <div className="flex flex-col items-center justify-center gap-14 h-full">
             <p className="text-3xl font-semibold">General English Test</p>
-            <div className="flex gap-5">
+            <div className="flex gap-5 flex-col sm:flex-row">
               <div className="bg-primary-50 rounded-lg w-[185px] px-[30px] py-3">
                 <p className="text-xs">Total questions</p>
                 <p className="font-bold mt-2">10 questions</p>
